@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { FormDescription, FormField, FormItem } from '@/components/ui/form';
 import { useFieldArray, useFormContext } from 'react-hook-form';
+import MenuItemInput from './MenuItemInput';
 
 const MenuSection = () => {
     const { control } = useFormContext();
@@ -24,7 +25,10 @@ const MenuSection = () => {
                 render={() => (
                     <FormItem className="flex flex-col gap-2">
                         {fields.map((_, index) => (
-                            <MenuItemInput/>
+                            <MenuItemInput
+                                index={index}
+                                removeMenuItem={() => remove(index)}
+                            />
                         ))}
                     </FormItem>
                 )}
