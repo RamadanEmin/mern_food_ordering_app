@@ -1,7 +1,8 @@
 import {
     FormControl,
     FormDescription,
-    FormField, FormItem,
+    FormField, 
+    FormItem,
     FormLabel,
     FormMessage
 } from '@/components/ui/form';
@@ -20,7 +21,7 @@ const DetailsSection = () => {
                 </FormDescription>
             </div>
 
-            <FormField control={control} name="restaurantName" render={(field) => (
+            <FormField control={control} name="restaurantName" render={({ field }) => (
                 <FormItem>
                     <FormLabel>Name</FormLabel>
                     <FormControl>
