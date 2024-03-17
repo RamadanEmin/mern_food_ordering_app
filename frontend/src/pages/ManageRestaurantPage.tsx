@@ -4,7 +4,10 @@ import ManageRestaurantForm from '@/forms/manage-restaurant-form/ManageRestauran
 const ManageRestaurantPage = () => {
     const { createRestaurant, isLoading } = useCreateMyRestaurant();
 
-    return <ManageRestaurantForm onSave={createRestaurant} isLoading={isLoading} />;
+    return <ManageRestaurantForm
+        onSave={createRestaurant}
+        isLoading={isLoading}
+    />;
 };
 
 export default ManageRestaurantPage;
