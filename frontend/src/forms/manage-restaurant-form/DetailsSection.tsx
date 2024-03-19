@@ -65,7 +65,7 @@ const DetailsSection = () => {
                 name="deliveryPrice"
                 render={({ field }) => (
                     <FormItem className="max-w-[25%]">
-                        <FormLabel>Delivery price (лв)</FormLabel>
+                        <FormLabel>Delivery price (€)</FormLabel>
                         <FormControl>
                             <Input {...field} className="bg-white" placeholder="2.50" />
                         </FormControl>
