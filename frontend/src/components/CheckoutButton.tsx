@@ -3,8 +3,8 @@ import { useLocation } from 'react-router-dom';
 import { Button } from './ui/button';
 import LoadingButton from './LoadingButton';
 import { useGetMyUser } from '@/api/MyUserApi';
-import { Dialog, DialogTrigger } from './ui/dialog';
-import { UserFormData } from '@/forms/user-profile-form/UserProfileForm';
+import { Dialog, DialogContent, DialogTrigger } from './ui/dialog';
+import UserProfileForm, { UserFormData } from '@/forms/user-profile-form/UserProfileForm';
 
 type Props = {
     onCheckout: (userFormData: UserFormData) => void;
@@ -45,6 +45,15 @@ const CheckoutButton = ({ onCheckout, disabled }: Props) => {
                     Go to checkout
                 </Button>
             </DialogTrigger>
+            <DialogContent className="max-w-[425px] md:min-w-[700px] bg-gray-50">
+                <UserProfileForm
+                    currentUser={currentUser}
+                    onSave={onCheckout}
+                    isLoading={isGetUserLoading}
+                    title="Confirm Deliery Details"    
+                    buttonText="Continue to payment"   
+                />
+            </DialogContent>
         </Dialog>
     );
 };
