@@ -4,9 +4,11 @@ import { useGetRestaurant } from '@/api/RestaurantApi';
 import MenuItems from '@/components/MenuItems';
 import RestaurantInfo from '@/components/RestaurantInfo';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
-import { Card } from '@/components/ui/card';
+import { Card, CardFooter } from '@/components/ui/card';
 import OrderSummary from '@/components/OrderSummary';
 import { MenuItem as MenuItemType } from '../types';
+import CheckoutButton from '@/components/CheckoutButton';
+import { UserFormData } from '@/forms/user-profile-form/UserProfileForm';
 
 export type CartItem = {
     _id: string;
@@ -65,6 +67,10 @@ const DetailPage = () => {
         });
     };
 
+    const onCheckout = async (userFormData: UserFormData) => {
+        console.log('userFormData', userFormData);
+    };
+
     if (isLoading || !restaurant) {
         return 'Loading...';
     }
@@ -97,6 +103,12 @@ const DetailPage = () => {
                             cartItems={cartItems}
                             removeFromCart={removeFromCart}
                         />
+                        <CardFooter>
+                            <CheckoutButton
+                                disabled={cartItems.length === 0}
+                                onCheckout={onCheckout}
+                            />
+                        </CardFooter>
                     </Card>
                 </div>
             </div>
