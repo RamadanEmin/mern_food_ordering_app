@@ -13,8 +13,10 @@ mongoose
     .then(() => console.log('Connected to database!'));
 
 const app = express();
-app.use(express.json());
 app.use(cors());
+
+app.use('/api/order/checkout/webhook', express.raw({ type: '*/*' }));
+app.use(express.json());
 
 app.use('/health', async (req: Request, res: Response) => {
     res.send({ message: 'health ok!!!' });
@@ -28,8 +30,8 @@ cloudinary.config({
 
 app.use('/api/my/user', myUserRoute);
 app.use('/api/my/restaurant', myRestaurantRoute);
-app.use('/api/restaurant',restaurantRoute);
-app.use('/api/order',orderRoute);
+app.use('/api/restaurant', restaurantRoute);
+app.use('/api/order', orderRoute);
 
 app.listen(7000, () => {
     console.log('Server started on localhost:7000');
