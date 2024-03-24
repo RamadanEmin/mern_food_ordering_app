@@ -1,4 +1,5 @@
 import { useGetMyOrders } from '@/api/OrderApi';
+import OrderStatusHeader from '@/components/OrderStatusHeader';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 const OrderStatusPage = () => {
@@ -16,7 +17,7 @@ const OrderStatusPage = () => {
         <div className="space-y-10">
             {orders.map((order) => (
                 <div className="space-y-10 bg-gray-50 p-10 rounded-lg">
-                    <OrderStatusHeader />
+                    <OrderStatusHeader order={order} />
                     <div className="grid gap-10 md:grid-cols-2">
                         <AspectRatio ratio={16 / 5}>
                             <img
