@@ -36,7 +36,8 @@ const MobileNav = () => {
                             >
                                 Log In
                             </Button>
-                        )}
+                        )
+                    }
                 </SheetDescription>
             </SheetContent>
         </Sheet>
