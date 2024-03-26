@@ -1,16 +1,34 @@
-import { Order } from '@/types';
+import { useEffect, useState } from 'react';
+import { Order, OrderStatus } from '@/types';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Separator } from './ui/separator';
 import { Badge } from './ui/badge';
 import { Label } from './ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { ORDER_STATUS } from '@/config/order-status-config';
+import { useUpdateMyRestaurantOrder } from '@/api/MyRestaurantApi';
 
 type Props = {
     order: Order;
 };
 
 const OrderItemCard = ({ order }: Props) => {
+    const { updateRestaurantStatus, isLoading } = useUpdateMyRestaurantOrder();
+    const [status, setStatus] = useState<OrderStatus>(order.status);
+
+    useEffect(() => {
+        setStatus(order.status);
+    }, [order.status]);
+
+    const handleStatusChange = async (newStatus: OrderStatus) => {
+        await updateRestaurantStatus({
+            orderId: order._id as string,
+            status: newStatus,
+        });
+        
+        setStatus(newStatus);
+    };
+
     const getTime = () => {
         const orderDateTime = new Date(order.createdAt);
 
@@ -64,11 +82,15 @@ const OrderItemCard = ({ order }: Props) => {
                 </div>
                 <div className="flex flex-col space-y-1.5">
                     <Label htmlFor="status">What is the status of this order?</Label>
-                    <Select>
-                        <SelectTrigger id="status">
-                            <SelectValue placeholder="Status" />
+                    <Select
+                        value={status}
+                        disabled={isLoading}
+                        onValueChange={(value) => handleStatusChange(value as OrderStatus)}
+                    >
+                        <SelectTrigger id='status'>
+                            <SelectValue placeholder='Status' />
                         </SelectTrigger>
-                        <SelectContent position="popper">
+                        <SelectContent position='popper'>
                             {ORDER_STATUS.map((status) => (
                                 <SelectItem value={status.value}>{status.label}</SelectItem>
                             ))}
